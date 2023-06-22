@@ -1,0 +1,141 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "VOTING-APP APIs",
+      "description": "API documentation",
+      "version": "1.0.0"
+    },
+    "basePath": "/",
+    "paths": {
+      "/auth/signup": {
+        "post": {
+          "tags": ["User"],
+          "summary": "Create a new user",
+          "description": "Endpoint to create a new user",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "user",
+              "description": "User object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/UserSignup"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User created successfully",
+              "schema": {
+                "$ref": "#/definitions/UserResponse"
+              }
+            },
+            "400": {
+              "description": "Invalid request payload"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/auth/signin": {
+        "post": {
+          "tags": ["User"],
+          "summary": "User signin",
+          "description": "Endpoint for user signin",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "credentials",
+              "description": "User credentials",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/UserCredentials"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User signed in successfully",
+              "schema": {
+                "$ref": "#/definitions/UserResponse"
+              }
+            },
+            "400": {
+              "description": "Invalid request payload"
+            },
+            "401": {
+              "description": "Invalid credentials"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "UserSignup": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "nationalId": {
+            "type": "string"
+          },
+          "role" : {
+            "type" : "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "confirmPassword": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "email", "phone", "nationalId", "password", "confirmPassword"]
+      },
+      "UserCredentials": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      }
+    }
+  }
+  
